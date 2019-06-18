@@ -1,9 +1,11 @@
 FROM php:7.2
 
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends git zip unzip zlib1g-dev libzip-dev && \
+    apt-get install -y --no-install-recommends libicu-dev g++ git zip unzip zlib1g-dev libzip-dev && \
     rm -rf /var/lib/apt/lists/* && \
-    docker-php-ext-install zip
+    docker-php-ext-install zip && \
+    docker-php-ext-configure intl && \
+    docker-php-ext-install intl
 
 ENV COMPOSER_ALLOW_SUPERUSER 1
 ENV COMPOSER_VERSION 1.8.5
